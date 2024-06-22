@@ -21,13 +21,19 @@ const CvView = ({cv}) => {
                             <p>Occupation: {cv.personalInformation.occupation}</p>
                         </div>
                         <div>
-                            <p>Educational Information</p>
-                            <p>Institute Name: {cv.education.instituteName}</p>
-                            <p>Degree: {cv.education.degree}</p>
-                            <p>Pass Year: {cv.education.passYear}</p>
-                            <p>Result: {cv.education.result}</p>
+                            <p>Educational Information:</p>
+                            {cv.educationList.map((education, index) => (
+                                <div key={index}>
+                                    <p>{index}</p>
+                                    <p>Institute Name: {education.instituteName}</p>
+                                    <p>Degree: {education.degree}</p>
+                                    <p>Pass Year: {education.passYear}</p>
+                                    <p>Result: {education.result}</p>
+                                </div>
+                            ))}
+
                             <br/>
-                            <p>Experience Information</p>
+                            <p>Experience Information:</p>
                             <p>Company Name: {cv.experience.companyName}</p>
                             <p>Position: {cv.experience.position}</p>
                             <p>Experience in Year: {cv.experience.experienceYear}</p>

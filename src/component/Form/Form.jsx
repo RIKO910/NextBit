@@ -11,8 +11,16 @@ const Form = (
         dispatchEducation,
         experience,
         dispatchExperience,
-        handleSubmit
+        handleSubmit,
+        educationList,
+        handleMore,
+        handleChange
     }) => {
+
+    const handleCheckboxChange = (e) => {
+        const value = e.target.checked ? "yes" : "no";
+        dispatchPersonal({ type: "storeInformation", value });
+    };
 
     return (
         <div className="flex justify-center mt-4">
@@ -23,7 +31,11 @@ const Form = (
                             <PersonalInformation  personalInformation={personalInformation} dispatchPersonal={dispatchPersonal} ></PersonalInformation>
                         </div>
                         <div>
-                            <EducationalInformation education={education} dispatchEducation={dispatchEducation} ></EducationalInformation>
+                            <EducationalInformation  educationList={educationList}
+                                                     handleMore={handleMore}
+                                                     handleChange={handleChange} >
+
+                            </EducationalInformation>
                             <br/>
                             <ExperienceInformation experience={experience} dispatchExperience={dispatchExperience} ></ExperienceInformation>
                         </div>
@@ -31,10 +43,12 @@ const Form = (
                     <div className="flex justify-center">
                         <div className="form-control ">
                             <label className="cursor-pointer">
-                                <input type="checkbox" defaultChecked className="checkbox mt-5 checkbox-accent"/>
+                                <input
+                                    onChange={handleCheckboxChange}
+                                    checked={personalInformation.storeInformation === "yes"}
+                                    type="checkbox" defaultChecked className="checkbox mt-5 checkbox-accent"/>
                                 <span className="label-text ml-3">We will store you information upto 2 years. Are you agree with this condition?</span>
                             </label>
-
                         </div>
                     </div>
                     <div className="flex justify-center">

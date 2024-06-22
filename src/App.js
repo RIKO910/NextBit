@@ -100,6 +100,11 @@ const personalReducer =(state,action)=>{
             tempOccupation.occupation =action.value
             return tempOccupation;
 
+        case "storeInformation":
+            const tempStoreInformation ={...state}
+            tempStoreInformation.storeInformation =action.value
+            return tempStoreInformation;
+
         default:
             return state;
     }
@@ -131,29 +136,45 @@ export default function App() {
         marriedStatus:"",
         gender:"",
         tempAddress:"",
-        occupation:""
+        occupation:"",
+        storeInformation:""
     });
     // console.log(personalInformation)
-
     // const cv = { personalInformation, education, experience };
     // console.log(cv);
 
+    const [educationList, setEducationList] = useState([
+        { instituteName: '', degree: '', passYear: '', result: '' }
+    ]);
+
+    const handleMore = () => {
+        setEducationList([...educationList, { instituteName: '', degree: '', passYear: '', result: '' }]);
+    };
+
+    const handleChange = (index, type, value) => {
+        const newEducationList = [...educationList];
+        newEducationList[index][type] = value;
+        setEducationList(newEducationList);
+    };
+    // console.log(educationList);
+
     const [cv, setCv] = useState(null);
     const handleSubmit = () => {
-        const cvData = { personalInformation, education, experience };
+        const cvData = { personalInformation, educationList, experience };
         setCv(cvData);
         console.log(cvData);
     };
 
   return (
       <div>
-          <Navbar></Navbar>
+          <Navbar cv={cv}></Navbar>
           <CvView cv={cv}></CvView>
           <Form
               personalInformation={personalInformation}
               dispatchPersonal={dispatchPersonal}
-              education={education}
-              dispatchEducation={dispatchEducation}
+              educationList={educationList}
+              handleMore={handleMore}
+              handleChange={handleChange}
               experience={experience}
               dispatchExperience={dispatchExperience}
               handleSubmit ={handleSubmit}
